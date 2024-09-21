@@ -13,7 +13,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ArrowRight } from "lucide-react";
+import { AlertCircle, ArrowRight } from "lucide-react";
+import React, { useEffect } from "react";
+import { createUser } from "@/actions/user";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name is too short").max(50, "Name is too long"),
@@ -22,16 +25,20 @@ const formSchema = z.object({
     .min(10, "Phone number is too short")
     .max(10, "Phone number is too long"),
   email: z.string().email("Please enter a valid email"),
-  age: z.string().refine((value) => {
-    if (!value) {
-      return true;
-    }
-    const parsedValue = Number(value);
-    if (isNaN(parsedValue)) {
-      return false;
-    }
-    return parsedValue >= 6;
-  }, "Age must be a number and above 6"),
+  age: z
+    .string()
+    .optional()
+    .nullable()
+    .refine((value) => {
+      if (!value) {
+        return true;
+      }
+      const parsedValue = Number(value);
+      if (isNaN(parsedValue)) {
+        return false;
+      }
+      return parsedValue >= 6;
+    }, "Age must be a number and above 6"),
   occupation: z
     .string()
     .min(2, "Occupation is too short")
@@ -47,6 +54,10 @@ const formSchema = z.object({
 });
 
 export default function DetailsForm() {
+  const [error, setError] = React.useState<string | null>(null);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const [loading, setLoading] = React.useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -59,8 +70,52 @@ export default function DetailsForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      const params = new URLSearchParams(searchParams);
+      params.set("token", localStorage.getItem("token") || "");
+      router.push(`/vote?${params.toString()}`);
+    }
+  }, []);
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setError(null);
+    setLoading(true);
+    try {
+      const { error, success, token } = await createUser({
+        age: values.age ? parseInt(values.age) : undefined,
+        email: values.email,
+        location: values.location || undefined,
+        name: values.name,
+        occupation: values.occupation || undefined,
+        phoneNumber: values.phoneNumber,
+      });
+
+      if (error) {
+        setError(error);
+        return;
+      }
+
+      if (success) {
+        const params = new URLSearchParams(searchParams);
+        if (token) {
+          params.set("token", token);
+          localStorage.setItem("token", token);
+        }
+
+        router.push(`/vote?${params.toString()}`);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("An error occurred");
+      }
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    }
   }
 
   return (
@@ -126,8 +181,18 @@ export default function DetailsForm() {
             />
           ))}
         </div>
+        {error && (
+          <div className="bg-red-500/20 text-orange-900 p-2 rounded-md text-sm font-bold">
+            <AlertCircle size={16} className="inline-block mr-2" />
+            {error}
+          </div>
+        )}
         <div className="flex justify-end">
-          <Button type="submit" className="flex items-center gap-2">
+          <Button
+            type="submit"
+            className="flex items-center gap-2"
+            disabled={loading}
+          >
             Submit
             <ArrowRight size={18} />
           </Button>

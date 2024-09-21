@@ -1,14 +1,17 @@
 import React from "react";
 import DetailsForm from "./components/details-form";
+import { getUserByToken } from "@/actions/user";
 
-const Vote = ({
+const Vote = async ({
   searchParams,
 }: {
   searchParams: {
     token: string;
   };
 }) => {
-  if (!searchParams.token) {
+  const { error, success, data } = await getUserByToken(searchParams.token);
+
+  if (!searchParams.token || error) {
     return (
       <div className="z-[9999] fixed top-0 left-0 bottom-0 right-0 bg-white">
         <div className="relative bg-black/50 h-screen w-screen flex justify-center items-center">
@@ -30,7 +33,16 @@ const Vote = ({
     );
   }
 
-  return <div></div>;
+  if (success && data) {
+    return (
+      <div>
+        <h4>
+          Thank you for voting, {data.name}! Your vote has been successfully
+          submitted.
+        </h4>
+      </div>
+    );
+  }
 };
 
 export default Vote;
