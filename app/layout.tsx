@@ -1,16 +1,26 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Inter, Merriweather } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/header/header";
+import Footer from "@/components/footer/footer";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
+const edosz = localFont({
+  src: "./fonts/EDOSZ.ttf",
+  variable: "--font-edosz-mono",
   weight: "100 900",
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+
+const inter = Inter({
+  variable: "--font-inter",
+  weight: ["100", "900", "400", "700"],
+  subsets: ["latin", "cyrillic"],
+});
+
+const merriWeather = Merriweather({
+  variable: "--font-merriweather",
+  subsets: ["latin", "cyrillic"],
+  weight: ["300", "400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -26,9 +36,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} ${edosz.variable} ${merriWeather.variable} antialiased`}
+        suppressHydrationWarning
       >
+        <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
