@@ -3,8 +3,6 @@ import React from "react";
 import VoteForm from "./components/vote-form";
 import DetailsForm from "./components/details-form";
 import { getUserByToken } from "@/actions/user";
-import { getVoteByUserId } from "@/actions/vote";
-import { redirect } from "next/navigation";
 
 const Vote = async ({
   searchParams,
@@ -38,12 +36,6 @@ const Vote = async ({
   }
 
   if (success && data) {
-    const { data: vote, success: voteSuccess } = await getVoteByUserId(data.id);
-
-    if (vote || voteSuccess) {
-      redirect("/thankyou");
-    }
-
     return (
       <section className="min-h-screen pt-12 " id="vote-bg">
         <div className="flex justify-center">
