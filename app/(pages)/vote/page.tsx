@@ -15,15 +15,15 @@ const Vote = async ({
 
   if (!searchParams.token || error) {
     return (
-      <div className="z-[9999] fixed top-0 left-0 bottom-0 right-0 bg-yellow-400">
-        <div className="relative bg-black/30 h-screen w-screen flex justify-center items-center">
-          <div className="bg-yellow-400 relative p-4 rounded-md mx-5 w-full shadow-md overflow-hidden max-w-sm">
+      <div className="z-[9999] fixed top-0 left-0 bottom-0 right-0 bg-white">
+        <div className="relative  h-screen w-screen flex justify-center items-center">
+          <div className="bg-yellow-400 relative p-4 rounded-md mx-5 w-full shadow-logo overflow-hidden max-w-sm">
             <div id="texture-yellow" />
-            <div className="relative flex flex-col justify-center min-h-screen">
+            <div className="relative">
               <h4 className="text-xl font-bold text-black mb-2">
                 Enter your details:
               </h4>
-              <p className="text-sm text-red-600 italic leading-4 ">
+              <p className="text-xs font-semibold text-orange-900 italic leading-4 ">
                 Please enter your details carefully. Any inappropriate
                 information may lead to disqualification.
               </p>
