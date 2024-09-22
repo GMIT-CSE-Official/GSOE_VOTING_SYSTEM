@@ -15,8 +15,8 @@ const Vote = async ({
 
   if (!searchParams.token || error) {
     return (
-      <div className="z-[9999] fixed top-0 left-0 bottom-0 right-0 bg-white">
-        <div className="relative bg-black/50 h-screen w-screen flex justify-center items-center">
+      <div className="z-[9999] fixed top-0 left-0 bottom-0 right-0 bg-yellow-400">
+        <div className="relative bg-black/30 h-screen w-screen flex justify-center items-center">
           <div className="bg-yellow-400 relative p-4 rounded-md mx-5 w-full shadow-md overflow-hidden max-w-sm">
             <div id="texture-yellow" />
             <div className="relative flex flex-col justify-center min-h-screen">

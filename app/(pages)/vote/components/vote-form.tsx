@@ -108,11 +108,11 @@ const bestArtAndAmbienceImages = [
 
 const bestIdolImages = [
   {
-    src: "/assets/Images/Vote-idol-1.png",
+    src: "/assets/Images/Vote-Idol-1.png",
     alt: "Logo",
   },
   {
-    src: "/assets/Images/Vote-idol-2.png",
+    src: "/assets/Images/Vote-Idol-2.png",
     alt: "Logo",
   },
 ];
@@ -181,7 +181,7 @@ const VoteForm = ({ data }: { data: User }) => {
                     placeholder="Type Here"
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-center" />
               </FormItem>
             )}
           />
@@ -203,7 +203,7 @@ const VoteForm = ({ data }: { data: User }) => {
                     placeholder="Type Here"
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-center" />
               </FormItem>
             )}
           />
@@ -225,7 +225,7 @@ const VoteForm = ({ data }: { data: User }) => {
                     placeholder="Type Here"
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-center" />
               </FormItem>
             )}
           />
