@@ -1,10 +1,7 @@
-import { Button } from "@/components/ui/button";
 import Carousel from "@/components/ui/carousel";
 import DashedSeparator from "@/components/ui/dashed-separator";
 import Marquee from "@/components/ui/marquee";
-import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 import EmbedInsta from "./components/embed-insta";
 import SharedBtn from "./components/shared-btn";
