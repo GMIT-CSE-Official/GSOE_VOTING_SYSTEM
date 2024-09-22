@@ -6,7 +6,7 @@ import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
 
 const edosz = localFont({
-  src: "fonts/EDOSZ.ttf",
+  src: "fonts/edosz.ttf",
   variable: "--font-edosz-mono",
   weight: "100 900",
 });
