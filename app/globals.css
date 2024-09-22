@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: "Edosz";
-  src: url("../app/fonts/edosz.ttf") format("truetype");
+  src: url("../../../gsoe-voting/app/fonts/edosz.ttf") format("truetype");
   font-weight: 900;
   font-style: normal;
 }
