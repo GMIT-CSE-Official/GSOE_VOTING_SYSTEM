@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${merriWeather.variable} antialiased`}
+        className={`${inter.variable} ${merriWeather.variable} antialiased max-w-md mx-auto relative`}
         suppressHydrationWarning
       >
         <Header />

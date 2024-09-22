@@ -14,40 +14,118 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { AlertCircle, ArrowRight } from "lucide-react";
 
 import React from "react";
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-
-// import required modules
-import { Navigation } from "swiper/modules";
 import { useRouter } from "next/navigation";
+import Carousel from "./carousel";
+import { User } from "@prisma/client";
+import { vote } from "@/actions/vote";
 
 const formSchema = z.object({
-  bestIdol: z.string().min(2).max(200).optional().nullable(),
-  bestArtAndAmbiance: z.string().min(2).max(200).optional().nullable(),
-  bestConcept: z.string().min(2).max(200).optional().nullable(),
+  bestIdol: z
+    .string()
+    .optional()
+    .nullable()
+    .refine(
+      (v) => {
+        if (v === "") return true;
+        if (v?.length) {
+          return v.length >= 3;
+        }
+        return false;
+      },
+      {
+        message: "Please enter atleast 3 characters",
+      }
+    ),
+  bestArtAndAmbience: z
+    .string()
+    .optional()
+    .nullable()
+    .refine(
+      (v) => {
+        if (v === "") return true;
+        if (v?.length) {
+          return v.length >= 3;
+        }
+        return false;
+      },
+      {
+        message: "Please enter atleast 3 characters",
+      }
+    ),
+  bestConcept: z
+    .string()
+    .optional()
+    .nullable()
+    .refine(
+      (v) => {
+        if (v === "") return true;
+        if (v?.length) {
+          return v.length >= 3;
+        }
+        return false;
+      },
+      {
+        message: "Please enter atleast 3 characters",
+      }
+    ),
 });
 
-const VoteForm = () => {
+const bestConceptImages = [
+  {
+    src: "/assets/Images/Vote-art-1.png",
+    alt: "Logo",
+  },
+  {
+    src: "/assets/Images/Vote-art-1.png",
+    alt: "Logo",
+  },
+];
+
+const VoteForm = ({ data }: { data: User }) => {
   const router = useRouter();
+  const [error, setError] = React.useState<string | null>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       bestIdol: "",
-      bestArtAndAmbiance: "",
+      bestArtAndAmbience: "",
       bestConcept: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    router.push("/thankyou");
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const { error, message, success } = await vote({
+        bestArtAndAmbience: values.bestArtAndAmbience || undefined,
+        userId: data.id,
+        bestConcept: values.bestConcept || undefined,
+        bestIdol: values.bestIdol || undefined,
+      });
+
+      if (error) {
+        if (message) {
+          setError(message);
+          return;
+        }
+        setError("An error occurred");
+        return;
+      }
+
+      if (success) {
+        router.push("/thankyou");
+        return;
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+        return;
+      }
+      setError("An error occurred");
+    }
   }
   return (
     <Form {...form}>
@@ -87,7 +165,7 @@ const VoteForm = () => {
         <div>
           <FormField
             control={form.control}
-            name="bestArtAndAmbiance"
+            name="bestArtAndAmbience"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Best Art and Ambiance</FormLabel>
@@ -132,48 +210,21 @@ const VoteForm = () => {
             )}
           />
           <div className="border-[15px] border-orange-900 mt-4 rounded-lg">
-            <Image
-              src={"/assets/Images/Vote-art-1.png"}
-              alt="Logo"
-              width={0}
-              height={0}
-              sizes="auto"
-              className="w-full aspect-video object-cover object-center "
-            />
+            <Carousel images={bestConceptImages} />
           </div>
         </div>
-        <div className="text-end">
+        {error && (
+          <div className="text-destructive text-sm bg-red-500/30 flex items-center p-2 rounded-md gap-2 font-semibold">
+            <AlertCircle size={20} />
+            {error}
+          </div>
+        )}
+        <div className="flex justify-end">
           <Button type="submit" className="flex gap-2">
             Submit
             <ArrowRight size={20} />
           </Button>
         </div>
-        <Swiper
-          rewind={true}
-          navigation={true}
-          modules={[Navigation]}
-          className="mySwiper"
-        >
-          <SwiperSlide>
-            {" "}
-            <Image
-              src={"/assets/Images/Vote-art-1.png"}
-              alt="Logo"
-              width={0}
-              height={0}
-              sizes="auto"
-              className="w-full aspect-video object-cover object-center "
-            />
-          </SwiperSlide>
-          <SwiperSlide>Slide 2</SwiperSlide>
-          <SwiperSlide>Slide 3</SwiperSlide>
-          <SwiperSlide>Slide 4</SwiperSlide>
-          <SwiperSlide>Slide 5</SwiperSlide>
-          <SwiperSlide>Slide 6</SwiperSlide>
-          <SwiperSlide>Slide 7</SwiperSlide>
-          <SwiperSlide>Slide 8</SwiperSlide>
-          <SwiperSlide>Slide 9</SwiperSlide>
-        </Swiper>
       </form>
     </Form>
   );

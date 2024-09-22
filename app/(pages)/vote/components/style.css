@@ -1,0 +1,25 @@
+.swiper-button-next,
+.swiper-button-prev {
+    aspect-ratio: 1;
+    width: 24px;
+    background-color: #ffffff1f;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 0 #0000001f;
+    padding: 10px;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    filter: invert(1);
+}
+
+.swiper-button-prev::after {
+    transform: rotate(180deg);
+}

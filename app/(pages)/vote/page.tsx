@@ -3,6 +3,8 @@ import React from "react";
 import VoteForm from "./components/vote-form";
 import DetailsForm from "./components/details-form";
 import { getUserByToken } from "@/actions/user";
+import { getVoteByUserId } from "@/actions/vote";
+import { redirect } from "next/navigation";
 
 const Vote = async ({
   searchParams,
@@ -34,12 +36,21 @@ const Vote = async ({
       </div>
     );
   }
+
   if (success && data) {
+    const { data: vote, success: voteSuccess } = await getVoteByUserId(data.id);
+
+    if (vote || voteSuccess) {
+      redirect("/thankyou");
+    }
+
     return (
       <section className="min-h-screen pt-12 " id="vote-bg">
-        <div id="red-smoke" />
-        <div className="flex max-[380px]:flex-wrap-reverse justify-center items-center gap-5 p-4">
-          <div className="max-w-[135px] mt-16 space-y-2">
+        <div className="flex justify-center">
+          <div id="red-smoke" />
+        </div>
+        <div className="flex max-[370px]:flex-wrap-reverse justify-center items-center gap-5 p-4">
+          <div className="min-[370px]:max-w-[135px] mt-16 space-y-2 max-[370px]:w-full">
             <p id="voteTitleText" className="text-white text-3xl font-semibold">
               VOTE NOW!
             </p>
@@ -67,7 +78,7 @@ const Vote = async ({
           </div>
         </div>
         <div className="flex flex-col justify-center items-center text-center">
-          <VoteForm />
+          <VoteForm data={data} />
         </div>
       </section>
     );
