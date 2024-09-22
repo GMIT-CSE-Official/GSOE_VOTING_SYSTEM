@@ -8,13 +8,19 @@ body {
 }
 
 #home-bg {
-  background: #B11116;
+  background: #b11116;
+  position: relative;
+  z-index: 0;
+}
+
+#vote-bg {
+  background: #facc15;
   position: relative;
   z-index: 0;
 }
 
 #home-bg::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -37,6 +43,23 @@ body {
   transform: rotate(180deg);
 }
 
+#boy-pic {
+  background: url("../public/assets/Images/Vote-Art.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  mix-blend-mode: darken;
+}
+
+#red-smoke {
+  background: url("../public/assets/Images/Vote-Red-Smoke.png");
+  position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 390px;
+  height: 166px;
+  top: 0;
+}
+
 #texture-yellow {
   background: url("../public/assets/Texture-Component-Yellow.png") repeat;
   position: absolute;
@@ -53,8 +76,9 @@ body {
   height: 2px;
 }
 
-#ticketTitleText {
-  background: linear-gradient(180deg, #FC9C14, #7C2D12);
+#ticketTitleText,
+#voteTitleText {
+  background: linear-gradient(180deg, #fc9c14, #7c2d12);
   background-size: 100% 100%;
   -webkit-background-clip: text;
   -webkit-text-stroke: 3px transparent;
@@ -73,14 +97,12 @@ body {
   background: url("../public/assets/Texture-Grunge.png") repeat;
 }
 
-
-
 .rfm-child {
   margin-left: 1rem;
 }
 
 .marquee-placeholder {
-  background-color: #7C2D12;
+  background-color: #7c2d12;
   transform: rotate(-3deg);
   width: 110%;
 }

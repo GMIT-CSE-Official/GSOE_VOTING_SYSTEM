@@ -1,4 +1,6 @@
+import Image from "next/image";
 import React from "react";
+import VoteForm from "./components/vote-form";
 import DetailsForm from "./components/details-form";
 import { getUserByToken } from "@/actions/user";
 
@@ -32,15 +34,42 @@ const Vote = async ({
       </div>
     );
   }
-
   if (success && data) {
     return (
-      <div>
-        <h4>
-          Thank you for voting, {data.name}! Your vote has been successfully
-          submitted.
-        </h4>
-      </div>
+      <section className="min-h-screen pt-12 " id="vote-bg">
+        <div id="red-smoke" />
+        <div className="flex max-[380px]:flex-wrap-reverse justify-center items-center gap-5 p-4">
+          <div className="max-w-[135px] mt-16 space-y-2">
+            <p id="voteTitleText" className="text-white text-3xl font-semibold">
+              VOTE NOW!
+            </p>
+            <p className="text-orange-900 merriWeather text-xs text-nowrap">
+              Which is your top pick ?
+            </p>
+            <div className="text-xs italic">
+              <p className="">Vote for the</p>
+              <ul className="font-semibold list-disc ps-5 text-[10px] mt-1">
+                <li>Best Idol</li>
+                <li>Best Art and Ambiance</li>
+                <li>Best Concept</li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-16 w-[250px]">
+            <Image
+              src="/assets/Images/Vote-Art.png"
+              alt="texture-yellow"
+              width={0}
+              height={0}
+              sizes="auto"
+              className="mix-blend-darken w-full h-[250px] object-cover object-center"
+            />
+          </div>
+        </div>
+        <div className="flex flex-col justify-center items-center text-center">
+          <VoteForm />
+        </div>
+      </section>
     );
   }
 };

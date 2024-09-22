@@ -28,6 +28,7 @@
     "react-dom": "^18",
     "react-fast-marquee": "^1.6.5",
     "react-hook-form": "^7.53.0",
+    "react-social-media-embed": "^2.5.14",
     "shadcn": "^2.0.7",
     "swiper": "^11.1.14",
     "tailwind-merge": "^2.5.2",

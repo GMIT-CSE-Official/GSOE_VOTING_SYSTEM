@@ -69,8 +69,11 @@ export default function DetailsForm() {
       location: undefined,
     },
   });
+  console.log("babar bichi");
 
   useEffect(() => {
+    console.log("token", localStorage.getItem("token"));
+
     if (localStorage.getItem("token")) {
       const params = new URLSearchParams(searchParams);
       params.set("token", localStorage.getItem("token") || "");

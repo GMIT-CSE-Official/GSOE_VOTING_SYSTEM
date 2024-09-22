@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Vote" ALTER COLUMN "bestIdol" DROP NOT NULL,
+ALTER COLUMN "bestArtAndAmbience" DROP NOT NULL,
+ALTER COLUMN "bestConcept" DROP NOT NULL;

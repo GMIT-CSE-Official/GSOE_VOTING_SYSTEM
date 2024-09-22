@@ -24,9 +24,9 @@ model Vote {
   id                 String   @id @default(cuid())
   userId             String
   User               User     @relation(fields: [userId], references: [id])
-  bestIdol           String
-  bestArtAndAmbience String
-  bestConcept        String
+  bestIdol           String?
+  bestArtAndAmbience String?
+  bestConcept        String?
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 }
