@@ -5,9 +5,8 @@ import { InstagramEmbed } from "react-social-media-embed";
 const EmbedInsta = () => {
   return (
     <InstagramEmbed
-      url="https://www.instagram.com/p/DABEIYlyxp7/?utm_source=ig_web_button_share_sheet&igsh=MzRlODBiNWFlZA=="
+      url="https://www.instagram.com/the_greatestshowonearth?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
       width={328}
-      className="rounded-lg"
     />
   );
 };

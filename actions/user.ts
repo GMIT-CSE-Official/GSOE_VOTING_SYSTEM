@@ -88,7 +88,7 @@ export const createUser = async ({
       };
     }
 
-    if (phoneNumber.length !== 10) {
+    if (phoneNumber.length <= 10) {
       return {
         error: "Invalid phone number",
       };

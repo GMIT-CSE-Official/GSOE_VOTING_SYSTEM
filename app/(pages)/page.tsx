@@ -2,53 +2,11 @@ import AnimateLogo from "@/components/ui/animated-logo";
 import { Button } from "@/components/ui/button";
 import Carousel from "@/components/ui/carousel";
 import DashedSeparator from "@/components/ui/dashed-separator";
-import Marquee from "@/components/ui/marquee";
+import SponsorSection from "@/components/ui/sponsor-section";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-
-const mainSponsorLogos = [
-  {
-    image: "Sponsor-motovolt.jpg",
-  },
-  {
-    image: "Sponsor-kotak.png",
-    tagline: "Kotak",
-  },
-  {
-    image: "Sponsor-TheGsoe.jpg",
-    tagline: "The GSOE",
-  },
-  {
-    image: "Logo-4.png",
-    tagline: "Sponsor",
-  },
-];
-
-const associateLogos = [
-  {
-    src: "/assets/Sponsor-motovolt.jpg",
-    alt: "Logo 1",
-  },
-  {
-    src: "/assets/Sponsor-kotak.png",
-    alt: "Logo 2",
-  },
-  {
-    src: "/assets/Sponsor-TheGsoe.jpg",
-    alt: "Logo 3",
-  },
-  {
-    src: "/assets/Logo-4.png",
-    alt: "Logo 4",
-  },
-];
-
-export type AssociateLogo = {
-  src: string;
-  alt: string;
-};
 
 const page = () => {
   return (
@@ -94,7 +52,7 @@ const page = () => {
           </div>
         </div>
         <div
-          className="relative mt-6 p-3 pt-6 pb-8 rounded-lg mx-5"
+          className="relative mt-6 p-3 pt-6 pb-8 rounded-lg mx-5 mb-5"
           id="ticketComponent"
         >
           <div className="border rounded-lg px-1 py-2 border-orange-900 text-center relative">
@@ -116,48 +74,8 @@ const page = () => {
             </div>
           </div>
         </div>
-        <div className="relative overflow-x-hidden" id="grundge">
-          <Image
-            src="/assets/Break-Line.png"
-            alt="Break Line"
-            width={0}
-            height={0}
-            sizes="auto"
-            className="w-full h-4"
-          />
-          <div className="mx-5 relative pb-4">
-            <h4 className="text-center text-white mb-4 font-bold text-lg mt-4 merriWeather">
-              Powered By
-            </h4>
-            <div className="grid grid-cols-2 gap-2">
-              {mainSponsorLogos.map((logo, index) => (
-                <div
-                  key={index}
-                  className="flex justify-center items-center bg-white rounded-md overflow-hidden shadow-logo p-3"
-                >
-                  <div className="border border-orange-900 rounded-md flex justify-center items-center relative overflow-hidden">
-                    <Image
-                      src={`/assets/${logo.image}`}
-                      alt="Sponsor Logo"
-                      width={0}
-                      height={0}
-                      sizes="auto"
-                      className="w-[80%] h-full rounded-md object-contain object-center"
-                    />
-                    {logo.tagline && (
-                      <div className="absolute  bg-orange-900 text-white w-full text-center font-semibold left-0 right-0 bottom-0">
-                        {logo.tagline}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="py-4">
-            <Marquee associateLogos={associateLogos} />
-          </div>
-        </div>
+        {/* Make this component */}
+        <SponsorSection />
       </div>
     </section>
   );

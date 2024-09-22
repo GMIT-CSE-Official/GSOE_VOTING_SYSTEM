@@ -13,74 +13,106 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
 import { AlertCircle, ArrowRight } from "lucide-react";
 
 import React from "react";
-
 import { useRouter } from "next/navigation";
 import Carousel from "./carousel";
 import { User } from "@prisma/client";
 import { vote } from "@/actions/vote";
 
-const formSchema = z.object({
-  bestIdol: z
-    .string()
-    .optional()
-    .nullable()
-    .refine(
-      (v) => {
-        if (v === "") return true;
-        if (v?.length) {
-          return v.length >= 3;
+// Modify the schema to check that at least one field is filled
+const formSchema = z
+  .object({
+    bestIdol: z
+      .string()
+      .optional()
+      .nullable()
+      .refine(
+        (v) => {
+          if (v === "") return true;
+          if (v?.length) {
+            return v.length >= 3;
+          }
+          return false;
+        },
+        {
+          message: "Please enter at least 3 characters",
         }
-        return false;
-      },
-      {
-        message: "Please enter atleast 3 characters",
-      }
-    ),
-  bestArtAndAmbience: z
-    .string()
-    .optional()
-    .nullable()
-    .refine(
-      (v) => {
-        if (v === "") return true;
-        if (v?.length) {
-          return v.length >= 3;
+      ),
+    bestArtAndAmbience: z
+      .string()
+      .optional()
+      .nullable()
+      .refine(
+        (v) => {
+          if (v === "") return true;
+          if (v?.length) {
+            return v.length >= 3;
+          }
+          return false;
+        },
+        {
+          message: "Please enter at least 3 characters",
         }
-        return false;
-      },
-      {
-        message: "Please enter atleast 3 characters",
-      }
-    ),
-  bestConcept: z
-    .string()
-    .optional()
-    .nullable()
-    .refine(
-      (v) => {
-        if (v === "") return true;
-        if (v?.length) {
-          return v.length >= 3;
+      ),
+    bestConcept: z
+      .string()
+      .optional()
+      .nullable()
+      .refine(
+        (v) => {
+          if (v === "") return true;
+          if (v?.length) {
+            return v.length >= 3;
+          }
+          return false;
+        },
+        {
+          message: "Please enter at least 3 characters",
         }
-        return false;
-      },
-      {
-        message: "Please enter atleast 3 characters",
-      }
-    ),
-});
+      ),
+  })
+  .refine(
+    (data) =>
+      data.bestIdol?.trim() ||
+      data.bestArtAndAmbience?.trim() ||
+      data.bestConcept?.trim(),
+    {
+      message: "At least one field must be filled",
+      path: ["bestIdol"], // You can show error message below bestIdol or modify to another field if needed
+    }
+  );
 
 const bestConceptImages = [
+  {
+    src: "/assets/Images/Vote-concept-2.png",
+    alt: "Logo",
+  },
+  {
+    src: "/assets/Images/Vote-concept-1.png",
+    alt: "Logo",
+  },
+];
+
+const bestArtAndAmbienceImages = [
   {
     src: "/assets/Images/Vote-art-1.png",
     alt: "Logo",
   },
   {
-    src: "/assets/Images/Vote-art-1.png",
+    src: "/assets/Images/Vote-art-2.png",
+    alt: "Logo",
+  },
+];
+
+const bestIdolImages = [
+  {
+    src: "/assets/Images/Vote-idol-1.png",
+    alt: "Logo",
+  },
+  {
+    src: "/assets/Images/Vote-idol-2.png",
     alt: "Logo",
   },
 ];
@@ -88,6 +120,7 @@ const bestConceptImages = [
 const VoteForm = ({ data }: { data: User }) => {
   const router = useRouter();
   const [error, setError] = React.useState<string | null>(null);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -127,6 +160,7 @@ const VoteForm = ({ data }: { data: User }) => {
       setError("An error occurred");
     }
   }
+
   return (
     <Form {...form}>
       <form
@@ -152,14 +186,7 @@ const VoteForm = ({ data }: { data: User }) => {
             )}
           />
           <div className="border-[15px] border-orange-900 mt-4 rounded-lg">
-            <Image
-              src={"/assets/Images/Vote-art-1.png"}
-              alt="Logo"
-              width={0}
-              height={0}
-              sizes="auto"
-              className="w-full aspect-video object-cover object-center "
-            />
+            <Carousel images={bestIdolImages} />
           </div>
         </div>
         <div>
@@ -181,14 +208,7 @@ const VoteForm = ({ data }: { data: User }) => {
             )}
           />
           <div className="border-[15px] border-orange-900 mt-4 rounded-lg">
-            <Image
-              src={"/assets/Images/Vote-art-1.png"}
-              alt="Logo"
-              width={0}
-              height={0}
-              sizes="auto"
-              className="w-full aspect-video object-cover object-center "
-            />
+            <Carousel images={bestArtAndAmbienceImages} />
           </div>
         </div>
         <div>
@@ -220,7 +240,10 @@ const VoteForm = ({ data }: { data: User }) => {
           </div>
         )}
         <div className="flex justify-end">
-          <Button type="submit" className="flex gap-2">
+          <Button
+            type="submit"
+            className="flex gap-2 shadow-md shadow-slate-900/30"
+          >
             Submit
             <ArrowRight size={20} />
           </Button>

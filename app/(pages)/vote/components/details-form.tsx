@@ -17,13 +17,17 @@ import { AlertCircle, ArrowRight } from "lucide-react";
 import React, { useEffect } from "react";
 import { createUser } from "@/actions/user";
 import { useRouter, useSearchParams } from "next/navigation";
+import { isValidPhoneNumber } from "libphonenumber-js"; // Import the function
 
+// Zod schema with libphonenumber-js for phone number validation
 const formSchema = z.object({
   name: z.string().min(2, "Name is too short").max(50, "Name is too long"),
-  phoneNumber: z
-    .string()
-    .min(10, "Phone number is too short")
-    .max(10, "Phone number is too long"),
+  phoneNumber: z.string().refine(
+    (value) => isValidPhoneNumber(value), // Validate using libphonenumber-js
+    {
+      message: "Please enter a valid phone number with country code",
+    }
+  ),
   email: z.string().email("Please enter a valid email"),
   age: z
     .string()
@@ -129,28 +133,37 @@ export default function DetailsForm() {
             {
               name: "name",
               label: "Name",
-              placeholder: "John Doe",
+              placeholder: "Enter your full name",
               required: true,
             },
             {
               name: "phoneNumber",
               label: "Mobile",
-              placeholder: "1234567890",
+              placeholder: "Enter your phone number with country code",
               required: true,
             },
             {
               name: "email",
               label: "Email",
-              placeholder: "john@example.com",
+              placeholder: "Enter valid email only",
               required: true,
             },
-            { name: "age", label: "Age", placeholder: "18", type: "number" },
+            {
+              name: "age",
+              label: "Age",
+              placeholder: "Enter your age",
+              type: "number",
+            },
             {
               name: "occupation",
               label: "Occupation",
-              placeholder: "IT Employee",
+              placeholder: "Enter your occupation",
             },
-            { name: "location", label: "Location", placeholder: "New York" },
+            {
+              name: "location",
+              label: "Location",
+              placeholder: " Enter location",
+            },
           ].map((field) => (
             <FormField
               key={field.name}
@@ -158,7 +171,7 @@ export default function DetailsForm() {
               name={field.name as keyof z.infer<typeof formSchema>}
               render={({ field: formField }) => (
                 <FormItem>
-                  <div className="flex items-center gap-2 max-[360px]:flex-wrap">
+                  <p className="flex  items-center gap-2 max-[360px]:flex-wrap">
                     <FormLabel className="min-w-[80px] min-[360px]:text-right">
                       {field.label}
                       {field.required && (
@@ -174,7 +187,7 @@ export default function DetailsForm() {
                         className="w-full"
                       />
                     </FormControl>
-                  </div>
+                  </p>
                   <FormMessage className="mt-1 text-xs" />
                 </FormItem>
               )}
@@ -190,7 +203,7 @@ export default function DetailsForm() {
         <div className="flex justify-end">
           <Button
             type="submit"
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 shadow-md shadow-slate-700/30"
             disabled={loading}
           >
             Submit

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ShareIcon } from "lucide-react";
+import { Share2Icon } from "lucide-react";
 import React from "react";
 
 const SharedBtn = () => {
@@ -9,8 +9,8 @@ const SharedBtn = () => {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "Check this out!",
-          text: "Take a look at this awesome content.",
+          title: "Join the Celebration of GSOE Durga Puja Awards 2024!",
+          text: "I've just cast my vote for the best in this year's Durga Puja celebrations. Vote now and stand a chance to win a 3-Night, 4-Day Dream Getaway to Bali, Indonesia!",
           url: process.env.NEXT_PUBLIC_FRONTEND_URL, // Use the current page URL
         });
         console.log("Content shared successfully.");
@@ -24,9 +24,13 @@ const SharedBtn = () => {
 
   return (
     <>
-      <Button type="button" onClick={handleShare}>
+      <Button
+        type="button"
+        className="shadow-md shadow-slate-900/30"
+        onClick={handleShare}
+      >
         Share
-        <ShareIcon size={18} className="ms-2" />
+        <Share2Icon size={18} className="ms-2 " />
       </Button>
     </>
   );

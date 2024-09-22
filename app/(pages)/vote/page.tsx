@@ -19,15 +19,17 @@ const Vote = async ({
         <div className="relative bg-black/50 h-screen w-screen flex justify-center items-center">
           <div className="bg-yellow-400 relative p-4 rounded-md mx-5 w-full shadow-md overflow-hidden max-w-sm">
             <div id="texture-yellow" />
-            <div className="relative">
-              <h4 className="text-xl font-bold text-orange-900">
+            <div className="relative flex flex-col justify-center min-h-screen">
+              <h4 className="text-xl font-bold text-black mb-2">
                 Enter your details:
               </h4>
-              <p className="text-sm text-orange-900 italic">
+              <p className="text-sm text-red-600 italic leading-4 ">
                 Please enter your details carefully. Any inappropriate
                 information may lead to disqualification.
               </p>
-              <DetailsForm />
+              <div className="">
+                <DetailsForm />
+              </div>
             </div>
           </div>
         </div>
@@ -43,7 +45,7 @@ const Vote = async ({
         </div>
         <div className="flex max-[370px]:flex-wrap-reverse justify-center items-center gap-5 p-4">
           <div className="min-[370px]:max-w-[135px] mt-16 space-y-2 max-[370px]:w-full">
-            <p id="voteTitleText" className="text-white text-3xl font-semibold">
+            <p id="voteTitleText" className="text-white text-4xl font-semibold">
               VOTE NOW!
             </p>
             <p className="text-orange-900 merriWeather text-xs text-nowrap">

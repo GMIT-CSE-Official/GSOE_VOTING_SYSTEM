@@ -15,14 +15,14 @@ const AnimateLogo = () => {
           className="mix-blend-soft-light absolute top-0"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 1, delay: 1, ease: "linear" }}
         >
           <Image
             src={"/assets/Hero-Mandala.png"}
             alt="Mandala"
             width={300}
             height={300}
-            loading="eager"
+            loading="lazy"
           />
         </motion.div>
         <div className="relative flex justify-center items-center w-full h-full">
@@ -35,7 +35,7 @@ const AnimateLogo = () => {
               delay: 1,
               stiffness: 260,
               damping: 20,
-              ease: "backIn",
+              ease: "backOut",
             }}
           >
             <Image

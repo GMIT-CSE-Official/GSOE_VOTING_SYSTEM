@@ -14,6 +14,17 @@ body {
   overflow-x: hidden;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px rgb(250, 204, 21) inset !important;
+}
+
+input:-webkit-autofill {
+  -webkit-text-fill-color: rgb(124, 45, 18) !important;
+}
+
 #home-bg {
   background: #b11116;
   position: relative;
@@ -41,12 +52,12 @@ body {
   background: url("../public/assets/Texture-Fog.png") repeat;
   position: absolute;
   background-size: cover;
-  top: -100px;
+  top: -350px;
   left: 0;
   width: 100%;
   height: 100%;
   z-index: -1;
-  opacity: 0.7;
+  opacity: 0.8;
   transform: rotate(180deg);
 }
 
@@ -100,8 +111,26 @@ body {
   z-index: 1;
 }
 
+#ticketComponent::before {
+  content: "";
+  position: absolute;
+  top: 24px;
+  left: 15px;
+  width: 93%;
+  height: 89%;
+  border-radius: 12px;
+  background: url("../public/assets/Texture-Component-Yellow.png") repeat;
+  background-size: contain;
+  background-position: center;
+  opacity: 0.6;
+  mix-blend-mode: hard-light;
+  z-index: 0;
+  pointer-events: none; /* Ensures it doesn't affect interactions */
+}
+
 #grundge {
   background: url("../public/assets/Texture-Grunge.png") repeat;
+  background-size: cover;
 }
 
 .rfm-child {
