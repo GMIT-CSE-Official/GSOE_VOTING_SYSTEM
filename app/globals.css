@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Edosz";
+  src: url("../app/fonts/edosz.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+
 body {
   font-family: var(--font-inter);
   overflow-x: hidden;
@@ -127,7 +134,8 @@ body {
 }
 
 .edosz {
-  font-family: var(--font-edosz-mono);
+  /* font-family: var(--font-edosz-mono); */
+  font-family: "Edosz";
 }
 
 .merriWeather {

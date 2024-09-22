@@ -1,15 +1,8 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import { Inter, Merriweather } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
-
-const edosz = localFont({
-  src: "./fonts/edosz.ttf",
-  variable: "--font-edosz-mono",
-  weight: "100 900",
-});
 
 const inter = Inter({
   variable: "--font-inter",
@@ -36,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${edosz.variable} ${merriWeather.variable} antialiased`}
+        className={`${inter.variable} ${merriWeather.variable} antialiased`}
         suppressHydrationWarning
       >
         <Header />
