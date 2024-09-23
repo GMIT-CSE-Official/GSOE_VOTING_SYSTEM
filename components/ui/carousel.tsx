@@ -5,18 +5,28 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-cards";
 
-import { EffectCards } from "swiper/modules";
+import { EffectCards, Autoplay } from "swiper/modules";
 import Image from "next/image";
 
-const Images = ["bali-1.png", "bali-2.png", "bali-3.png"];
+const Images = [
+  "bali-1.png",
+  "bali-2.png",
+  "bali-3.png",
+  "bali-4.png",
+  "bali-5.png",
+];
 
 const Carousel = () => {
   return (
     <>
       <Swiper
         effect={"cards"}
+        autoplay={{
+          delay: 1500,
+          disableOnInteraction: false,
+        }}
         grabCursor={true}
-        modules={[EffectCards]}
+        modules={[EffectCards, Autoplay]}
         className="mySwiper"
       >
         {Images.map((image, index) => (

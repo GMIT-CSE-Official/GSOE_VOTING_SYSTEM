@@ -17,17 +17,17 @@ import { AlertCircle, ArrowRight } from "lucide-react";
 import React, { useEffect } from "react";
 import { createUser } from "@/actions/user";
 import { useRouter, useSearchParams } from "next/navigation";
-import { isValidPhoneNumber } from "libphonenumber-js"; // Import the function
 
-// Zod schema with libphonenumber-js for phone number validation
+// Zod schema with phone number validation (10 digits, India-specific)
 const formSchema = z.object({
-  name: z.string().min(2, "Name is too short").max(50, "Name is too long"),
-  phoneNumber: z.string().refine(
-    (value) => isValidPhoneNumber(value), // Validate using libphonenumber-js
-    {
-      message: "Please enter a valid phone number with country code",
-    }
-  ),
+  name: z
+    .string()
+    .min(2, "Name is too short")
+    .max(50, "Name is too long")
+    .regex(/^[a-zA-Z\s]+$/, "Name must contain only letters and spaces"),
+  phoneNumber: z
+    .string()
+    .regex(/^\d{10}$/, "Please enter a valid 10-digit phone number"),
   email: z.string().email("Please enter a valid email"),
   age: z
     .string()
@@ -133,13 +133,13 @@ export default function DetailsForm() {
             {
               name: "name",
               label: "Name",
-              placeholder: "Enter your full name",
+              placeholder: "Enter full name",
               required: true,
             },
             {
               name: "phoneNumber",
               label: "Mobile",
-              placeholder: "Enter your phone number with country code",
+              placeholder: "Enter 10-digit phone number",
               required: true,
             },
             {
@@ -151,13 +151,13 @@ export default function DetailsForm() {
             {
               name: "age",
               label: "Age",
-              placeholder: "Enter your age",
+              placeholder: "Enter age",
               type: "number",
             },
             {
               name: "occupation",
               label: "Occupation",
-              placeholder: "Enter your occupation",
+              placeholder: "Enter occupation",
             },
             {
               name: "location",

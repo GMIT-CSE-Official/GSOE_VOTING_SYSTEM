@@ -26,7 +26,8 @@ const SharedBtn = () => {
     <>
       <Button
         type="button"
-        className="shadow-md shadow-slate-900/30"
+        size={"lg"}
+        className="shadow-md shadow-slate-900/30 w-1/2 bg-white text-red-600 font-semibold hover:bg-yellow-400 hover:text-red-600 "
         onClick={handleShare}
       >
         Share

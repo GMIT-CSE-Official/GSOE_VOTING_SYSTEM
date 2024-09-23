@@ -15,26 +15,26 @@ const mainSponsorLogos = [
     tagline: "Travel Partner",
   },
   {
-    image: "Demo.png",
-    tagline: "Demo",
+    image: "Sponsor-fortune.png",
+    tagline: "Sponsor",
   },
 ];
 
 const associateLogos = [
   {
-    src: "/assets/Sponsor-motovolt.jpg",
+    src: "/assets/Sponsor-yancha.png",
     alt: "Logo 1",
   },
   {
-    src: "/assets/Sponsor-kotak.png",
+    src: "/assets/Sponsor-GMIT.png",
     alt: "Logo 2",
   },
   {
-    src: "/assets/Sponsor-TheGsoe.jpg",
+    src: "/assets/Sponsor-pathfinder.jpg",
     alt: "Logo 3",
   },
   {
-    src: "/assets/Demo.png",
+    src: "/assets/Sponsor-kotak.png",
     alt: "Logo 4",
   },
 ];
@@ -86,7 +86,7 @@ const SponsorSection = () => {
       </div>
       <div className="py-4">
         <h4 className="text-center text-white mb-4 font-bold text-lg mt-4 merriWeather">
-          Associated With
+          In Association With
         </h4>
         <Marquee associateLogos={associateLogos} />
       </div>

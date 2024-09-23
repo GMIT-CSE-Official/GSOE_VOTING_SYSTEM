@@ -9,26 +9,12 @@ export default function Footer() {
         <Link
           href="https://www.instagram.com/the_greatestshowonearth/"
           aria-label="Instagram"
-          className="border-r border-white pr-2"
+          className="border-r border-white pr-4"
         >
           <Instagram className="w-5 h-5" />
         </Link>
-        <Link
-          href="https://www.facebook.com/dp2022"
-          aria-label="Facebook"
-          className="border-r border-white pr-2 mr-2"
-        >
+        <Link href="https://www.facebook.com/dp2022" aria-label="Facebook">
           <Facebook className="w-5 h-5" />
-        </Link>
-        <Link
-          href="#"
-          aria-label="Twitter"
-          className="border-r border-white pr-2 mr-2"
-        >
-          <Twitter className="w-5 h-5" />
-        </Link>
-        <Link href="#" aria-label="YouTube">
-          <Youtube className="w-5 h-5" />
         </Link>
       </div>
       <div className="text-xs mb-2">
@@ -38,7 +24,7 @@ export default function Footer() {
         <Link href="#" className="border-r border-white pr-2 mr-2">
           Terms and Conditions
         </Link>
-        <Link href="#">Contact Us</Link>
+        <Link href="mailto:contact@gsoedurgapuja.com">Contact Us</Link>
       </div>
       <p className="text-xs">
         © 2024 The Greatest Show On Earth - All Rights Reserved.

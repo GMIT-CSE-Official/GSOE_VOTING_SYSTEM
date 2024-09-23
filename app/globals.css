@@ -9,6 +9,14 @@
   font-style: normal;
 }
 
+::selection {
+  background: transparent;
+}
+
+input::selection {
+  color: #7c2d12;
+  background: #fc9c14;
+}
 body {
   font-family: var(--font-inter);
   overflow-x: hidden;
@@ -169,6 +177,11 @@ input:-webkit-autofill {
 
 .merriWeather {
   font-family: var(--font-merriweather);
+}
+
+/* EmbedInsta css */
+.x9f619.xjbqb8w.x78zum5.x168nmei.x13lgxp2.x5pf9jr.xo71vjh.x1p5oq8j.xxbr6pl.xwxc41k.xbbxn1n.x1n2onr6.x1plvlek.xryxfnj.x1c4vz4f.xs83m0k.x1q0g3np.xqjyukv.x6s0dn4.x1oa3qoh.x1nhvcw1 {
+  display: none !important;
 }
 
 @layer base {

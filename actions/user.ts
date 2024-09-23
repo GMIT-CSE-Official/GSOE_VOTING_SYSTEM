@@ -70,6 +70,17 @@ export const createUser = async ({
       };
     }
 
+    const phoneExists = await prisma.user.findFirst({
+      where: {
+        mobile: phoneNumber,
+      },
+    });
+    if (phoneExists) {
+      return {
+        error: "Phone number already exists",
+      };
+    }
+
     const userExists = await prisma.user.findFirst({
       where: {
         email,
@@ -88,7 +99,7 @@ export const createUser = async ({
       };
     }
 
-    if (phoneNumber.length <= 10) {
+    if (phoneNumber.length < 10 || phoneNumber.length > 10) {
       return {
         error: "Invalid phone number",
       };

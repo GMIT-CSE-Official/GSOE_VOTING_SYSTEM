@@ -12,7 +12,7 @@ const Marquee = ({ associateLogos }: { associateLogos: AssociateLogo[] }) => {
           <Image
             src={logo.src}
             alt={logo.alt}
-            className="h-16 w-16 object-contain object-center shadow-lg rounded-full p-2 mr-12"
+            className="h-20 w-20 object-contain object-center shadow-lg rounded-full p-2 mr-12"
             width={0}
             height={0}
             sizes="auto"
