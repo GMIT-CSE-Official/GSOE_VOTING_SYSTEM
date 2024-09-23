@@ -1,5 +1,3 @@
-import Carousel from "@/components/ui/carousel";
-import DashedSeparator from "@/components/ui/dashed-separator";
 import Image from "next/image";
 import React from "react";
 import EmbedInsta from "./components/embed-insta";
