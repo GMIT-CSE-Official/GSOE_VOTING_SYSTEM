@@ -90,10 +90,10 @@ export default function DetailsForm({
         phoneNumber: values.phoneNumber,
       });
 
-      if (error) {
-        setError(error);
-        setLoading(false); // Stop the loader in case of error
-        return;
+      if (success && token) {
+        cookies.set("token-gsoe", token);
+        router.push(`/vote`); // Replace the current page with the next one
+        setShowForm(false);
       }
 
       if (success) {
