@@ -100,7 +100,7 @@ export default function DetailsForm({
         if (token) {
           cookies.set("token-gsoe", token);
         }
-        router.push(`/vote`); // Replace the current page with the next one
+        window.location.href = "/vote"; // Replace the current page with the next one
         setShowForm(false);
       }
     } catch (error) {
