@@ -100,8 +100,8 @@ export default function DetailsForm({
         if (token) {
           cookies.set("token-gsoe", token);
         }
-        setShowForm(false);
         router.replace(`/vote`); // Replace the current page with the next one
+        setShowForm(false);
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -109,6 +109,8 @@ export default function DetailsForm({
       } else {
         setError("An error occurred");
       }
+      // setLoading(false); // Stop loader on error
+    } finally {
       setLoading(false); // Stop loader on error
     }
   }

@@ -179,11 +179,7 @@ const VoteForm = ({ data }: { data: User }) => {
       }
 
       if (success) {
-        // Delay the page transition for at least 2 seconds
-        setTimeout(() => {
-          setIsLoading(false); // Stop loading after 2 seconds
-          router.push("/thankyou"); // Redirect after loader hides
-        }, 2000); // 2-second delay
+        router.push("/thankyou");
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -191,6 +187,7 @@ const VoteForm = ({ data }: { data: User }) => {
       } else {
         setError("An error occurred");
       }
+    } finally {
       setIsLoading(false); // Stop loading
     }
   }
