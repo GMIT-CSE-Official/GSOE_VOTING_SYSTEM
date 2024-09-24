@@ -56,11 +56,7 @@ const formSchema = z.object({
     .nullable(),
 });
 
-export default function DetailsForm({
-  setShowForm,
-}: {
-  setShowForm: (value: boolean) => void;
-}) {
+export default function DetailsForm() {
   const cookies = useCookies();
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -100,8 +96,7 @@ export default function DetailsForm({
         if (token) {
           cookies.set("token-gsoe", token);
         }
-        router.push(`/vote`); // Replace the current page with the next one
-        setShowForm(false);
+        router.push(`/vote`); 
       }
     } catch (error) {
       if (error instanceof Error) {

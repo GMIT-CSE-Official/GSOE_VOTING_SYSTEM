@@ -8,14 +8,6 @@ import DetailsForm from "../vote/components/details-form";
 const VoteHere = () => {
   const [showForm, setShowForm] = React.useState(false);
 
-  React.useEffect(() => {
-    if (showForm) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-  }, [showForm]);
-
   return (
     <>
       {/* Vote Here section */}
@@ -75,7 +67,7 @@ const VoteHere = () => {
                 Please enter your details carefully. Any inappropriate
                 information may lead to disqualification.
               </p>
-              <DetailsForm setShowForm={setShowForm} />
+              <DetailsForm />
             </div>
           </div>
         </div>
