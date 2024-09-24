@@ -90,17 +90,18 @@ export default function DetailsForm({
         phoneNumber: values.phoneNumber,
       });
 
-      if (success) {
-        if (token) {
-          cookies.set("token-gsoe", token);
-          router.push(`/vote`); // Replace the current page with the next one
-        }
-        setShowForm(false);
+      if (error) {
+        setError(error);
+        setLoading(false); // Stop the loader in case of error
+        return;
       }
 
       if (success) {
-        cookies.set("token-gsoe", token);
-        router.push("/vote");
+        router.push(`/vote`); // Replace the current page with the next one
+        if (token) {
+          cookies.set("token-gsoe", token);
+        }
+        setShowForm(false);
       }
     } catch (error) {
       if (error instanceof Error) {
