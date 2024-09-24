@@ -15,7 +15,6 @@ import { Input } from "@/components/ui/input";
 import { AlertCircle, ArrowRight, Loader2 } from "lucide-react";
 import React, { useState } from "react";
 import { createUser } from "@/actions/user";
-import { useRouter } from "next/navigation";
 import { useCookies } from "next-client-cookies";
 
 const formSchema = z.object({
@@ -63,7 +62,7 @@ export default function DetailsForm({
 }) {
   const cookies = useCookies();
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
+
   const [loading, setLoading] = useState(false); // Loading state
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
