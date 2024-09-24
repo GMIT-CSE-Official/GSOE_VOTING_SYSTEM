@@ -4,7 +4,12 @@ import Marquee from "./marquee";
 
 const mainSponsorLogos = [
   {
+    image: "Sponsor-fortune.png",
+    tagline: "Title Sponsor",
+  },
+  {
     image: "Sponsor-motovolt.jpg",
+    tagline: "Eco Partner",
   },
   {
     image: "Sponsor-kotak.png",
@@ -13,10 +18,6 @@ const mainSponsorLogos = [
   {
     image: "Sponsor-TheGsoe.jpg",
     tagline: "Travel Partner",
-  },
-  {
-    image: "Sponsor-fortune.png",
-    tagline: "Sponsor",
   },
 ];
 
@@ -36,6 +37,10 @@ const associateLogos = [
   {
     src: "/assets/Sponsor-kotak.png",
     alt: "Logo 4",
+  },
+  {
+    src: "/assets/Sponsor-lux.png",
+    alt: "Logo 5",
   },
 ];
 

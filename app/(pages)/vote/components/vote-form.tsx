@@ -86,16 +86,32 @@ const formSchema = z
 
 const bestConceptImages = [
   {
-    src: "/assets/Images/Vote-concept-2.png",
+    src: "/assets/Images/Vote-concept-3.png",
+    alt: "Logo",
+  },
+  {
+    src: "/assets/Images/Vote-concept-4.png",
     alt: "Logo",
   },
   {
     src: "/assets/Images/Vote-concept-1.png",
     alt: "Logo",
   },
+  {
+    src: "/assets/Images/Vote-concept-2.png",
+    alt: "Logo",
+  },
 ];
 
 const bestArtAndAmbienceImages = [
+  {
+    src: "/assets/Images/Vote-art-3.png",
+    alt: "Logo",
+  },
+  {
+    src: "/assets/Images/Vote-art-4.png",
+    alt: "Logo",
+  },
   {
     src: "/assets/Images/Vote-art-1.png",
     alt: "Logo",
@@ -108,11 +124,19 @@ const bestArtAndAmbienceImages = [
 
 const bestIdolImages = [
   {
-    src: "/assets/Images/Vote-Idol-1.png",
+    src: "/assets/Images/Vote-idol-3.png",
     alt: "Logo",
   },
   {
-    src: "/assets/Images/Vote-Idol-2.png",
+    src: "/assets/Images/Vote-idol-4.png",
+    alt: "Logo",
+  },
+  {
+    src: "/assets/Images/Vote-idol-1.png",
+    alt: "Logo",
+  },
+  {
+    src: "/assets/Images/Vote-idol-2.png",
     alt: "Logo",
   },
 ];

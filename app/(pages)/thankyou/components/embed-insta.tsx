@@ -7,6 +7,7 @@ const EmbedInsta = () => {
     <InstagramEmbed
       url="https://www.instagram.com/the_greatestshowonearth?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
       width={328}
+      height={130}
     />
   );
 };
