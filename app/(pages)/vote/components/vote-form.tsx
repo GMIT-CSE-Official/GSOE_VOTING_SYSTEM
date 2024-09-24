@@ -188,7 +188,9 @@ const VoteForm = ({ data }: { data: User }) => {
         setError("An error occurred");
       }
     } finally {
-      setIsLoading(false); // Stop loading
+      setTimeout(() => {
+        setIsLoading(false); // Stop loading
+      }, 5000);
     }
   }
 

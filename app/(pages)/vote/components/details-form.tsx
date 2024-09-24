@@ -111,7 +111,9 @@ export default function DetailsForm({
       }
       // setLoading(false); // Stop loader on error
     } finally {
-      setLoading(false); // Stop loader on error
+      setTimeout(() => {
+        setLoading(false); // Stop loading
+      }, 5000);
     }
   }
 
