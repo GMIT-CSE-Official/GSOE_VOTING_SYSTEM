@@ -263,7 +263,7 @@ const VoteForm = ({ data }: { data: User }) => {
             {error}
           </div>
         )}
-        <div className="flex justify-end">
+        <div className="flex justify-center">
           <Button
             type="submit"
             className="flex gap-2 shadow-md shadow-slate-900/30"

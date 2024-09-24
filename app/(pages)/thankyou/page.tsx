@@ -25,10 +25,10 @@ const ThankYou = () => {
           <Image
             src="/assets/Images/instagram.png"
             alt="Instagram"
-            width={300}
-            height={500}
-            // sizes="auto"
-            className="w-full object-cover object-center rounded-md shadow-lg"
+            width={0}
+            height={0}
+            sizes="auto"
+            className="w-full aspect-square object-cover object-center rounded-md shadow-lg"
           />
         </div>
         <p className=" text-white font-bold font-lg merriWeather">
