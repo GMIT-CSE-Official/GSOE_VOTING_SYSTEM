@@ -12,8 +12,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { AlertCircle, ArrowRight } from "lucide-react";
-import React from "react";
+import { AlertCircle, ArrowRight, Loader2 } from "lucide-react";
+import React, { useState } from "react";
 import { createUser } from "@/actions/user";
 import { useRouter } from "next/navigation";
 import { useCookies } from "next-client-cookies";
@@ -62,9 +62,9 @@ export default function DetailsForm({
   setShowForm: (value: boolean) => void;
 }) {
   const cookies = useCookies();
-  const [error, setError] = React.useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = useState(false); // Loading state
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -79,7 +79,7 @@ export default function DetailsForm({
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setError(null);
-    setLoading(true);
+    setLoading(true); // Start showing the loader
     try {
       const { error, success, token } = await createUser({
         age: values.age ? parseInt(values.age) : undefined,
@@ -92,6 +92,7 @@ export default function DetailsForm({
 
       if (error) {
         setError(error);
+        setLoading(false); // Stop the loader in case of error
         return;
       }
 
@@ -100,7 +101,7 @@ export default function DetailsForm({
           cookies.set("token-gsoe", token);
         }
         setShowForm(false);
-        router.push(`/vote`);
+        router.replace(`/vote`); // Replace the current page with the next one
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -108,10 +109,7 @@ export default function DetailsForm({
       } else {
         setError("An error occurred");
       }
-    } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
+      setLoading(false); // Stop loader on error
     }
   }
 
@@ -197,13 +195,20 @@ export default function DetailsForm({
           <Button
             type="submit"
             className="flex items-center gap-2 shadow-md shadow-slate-700/30"
-            disabled={loading}
+            disabled={loading} // Disable button while loading
           >
             Submit
             <ArrowRight size={18} />
           </Button>
         </div>
       </form>
+
+      {/* Loader */}
+      {loading && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[9999]">
+          <Loader2 className="animate-spin text-white w-12 h-12" />
+        </div>
+      )}
     </Form>
   );
 }

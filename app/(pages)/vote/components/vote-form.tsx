@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { AlertCircle, ArrowRight } from "lucide-react";
+import { AlertCircle, ArrowRight, Loader2 } from "lucide-react";
 
 import React from "react";
 import { useRouter } from "next/navigation";
@@ -144,6 +144,7 @@ const bestIdolImages = [
 const VoteForm = ({ data }: { data: User }) => {
   const router = useRouter();
   const [error, setError] = React.useState<string | null>(null);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -155,6 +156,9 @@ const VoteForm = ({ data }: { data: User }) => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsLoading(true); // Start loading
+    console.log("isLoading: ", isLoading);
+
     try {
       const { error, message, success } = await vote({
         bestArtAndAmbience: values.bestArtAndAmbience || undefined,
@@ -166,22 +170,28 @@ const VoteForm = ({ data }: { data: User }) => {
       if (error) {
         if (message) {
           setError(message);
+          setIsLoading(false); // Stop loading
           return;
         }
         setError("An error occurred");
+        setIsLoading(false); // Stop loading
         return;
       }
 
       if (success) {
-        router.push("/thankyou");
-        return;
+        // Delay the page transition for at least 2 seconds
+        setTimeout(() => {
+          setIsLoading(false); // Stop loading after 2 seconds
+          router.push("/thankyou"); // Redirect after loader hides
+        }, 2000); // 2-second delay
       }
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
-        return;
+      } else {
+        setError("An error occurred");
       }
-      setError("An error occurred");
+      setIsLoading(false); // Stop loading
     }
   }
 
@@ -273,6 +283,12 @@ const VoteForm = ({ data }: { data: User }) => {
           </Button>
         </div>
       </form>
+
+      {isLoading && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[9999]">
+          <Loader2 className="animate-spin text-white w-12 h-12" />
+        </div>
+      )}
     </Form>
   );
 };
