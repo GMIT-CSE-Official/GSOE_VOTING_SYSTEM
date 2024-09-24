@@ -132,11 +132,11 @@ const bestIdolImages = [
     alt: "Logo",
   },
   {
-    src: "/public/assets/Vote-idol-1.png",
+    src: "/assets/Images/Vote-Idol-1.png",
     alt: "Logo",
   },
   {
-    src: "/public/assets/Vote-idol-2.png",
+    src: "/assets/Images/Vote-Idol-2.png",
     alt: "Logo",
   },
 ];
