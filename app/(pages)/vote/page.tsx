@@ -54,7 +54,7 @@ const Vote = async () => {
         <>
           <div className="flex justify-center items-center w-full aspect-square mb-8">
             <Image
-              src="/assets/Images/vote-hero-art.png"
+              src="/assets/Images/Vote-hero-art.png"
               alt="logo"
               width={0}
               height={0}
