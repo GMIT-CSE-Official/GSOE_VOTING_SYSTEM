@@ -16,7 +16,7 @@ const mainSponsorLogos = [
     tagline: "Banking Partner",
   },
   {
-    image: "Sponsor-TheGsoe.jpg",
+    image: "Sponsor-TheGsoe.png",
     tagline: "Travel Partner",
   },
 ];
