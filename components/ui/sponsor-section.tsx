@@ -35,6 +35,10 @@ const associateLogos = [
     alt: "Logo 3",
   },
   {
+    src: "/assets/Sponsor-kotak.png",
+    alt: "Logo 4",
+  },
+  {
     src: "/assets/Sponsor-lux.png",
     alt: "Logo 5",
   },
