@@ -97,10 +97,8 @@ export default function DetailsForm({
       }
 
       if (success) {
-        if (token) {
-          cookies.set("token-gsoe", token);
-          router.push(`/vote`); // Replace the current page with the next one
-        }
+        cookies.set("token-gsoe", token);
+        router.push(`/vote`); // Replace the current page with the next one
         setShowForm(false);
       }
     } catch (error) {
