@@ -1,5 +1,4 @@
 "use client";
-
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -14,11 +13,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { AlertCircle, ArrowRight } from "lucide-react";
-import React, { useEffect } from "react";
+import React from "react";
 import { createUser } from "@/actions/user";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useCookies } from "next-client-cookies";
 
-// Zod schema with phone number validation (10 digits, India-specific)
 const formSchema = z.object({
   name: z
     .string()
@@ -57,9 +56,13 @@ const formSchema = z.object({
     .nullable(),
 });
 
-export default function DetailsForm() {
+export default function DetailsForm({
+  setShowForm,
+}: {
+  setShowForm: (value: boolean) => void;
+}) {
+  const cookies = useCookies();
   const [error, setError] = React.useState<string | null>(null);
-  const searchParams = useSearchParams();
   const router = useRouter();
   const [loading, setLoading] = React.useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -73,14 +76,6 @@ export default function DetailsForm() {
       location: undefined,
     },
   });
-
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      const params = new URLSearchParams(searchParams);
-      params.set("token", localStorage.getItem("token") || "");
-      router.push(`/vote?${params.toString()}`);
-    }
-  }, [searchParams, router]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setError(null);
@@ -101,13 +96,11 @@ export default function DetailsForm() {
       }
 
       if (success) {
-        const params = new URLSearchParams(searchParams);
         if (token) {
-          params.set("token", token);
-          localStorage.setItem("token", token);
+          cookies.set("token-gsoe", token);
         }
-
-        router.push(`/vote?${params.toString()}`);
+        setShowForm(false);
+        router.push(`/vote`);
       }
     } catch (error) {
       if (error instanceof Error) {

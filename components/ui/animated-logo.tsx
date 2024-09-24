@@ -15,7 +15,13 @@ const AnimateLogo = () => {
           className="mix-blend-soft-light absolute top-0"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1, ease: "linear" }}
+          transition={{
+            duration: 1,
+            delay: 1,
+            ease: "linear",
+            repeat: Infinity,
+            repeatDelay: 1,
+          }}
         >
           <Image
             src={"/assets/Hero-Mandala.png"}
@@ -36,6 +42,8 @@ const AnimateLogo = () => {
               stiffness: 260,
               damping: 20,
               ease: "backOut",
+              repeat: Infinity,
+              repeatDelay: 1,
             }}
           >
             <Image
@@ -54,7 +62,12 @@ const AnimateLogo = () => {
             style={{ height: "180px", width: "180px" }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 3, delay: 1 }}
+            transition={{
+              duration: 3,
+              delay: 1,
+              repeat: Infinity,
+              repeatDelay: 1,
+            }}
           >
             <div className="absolute left-0 -translate-x-1/2">
               <Image
@@ -91,7 +104,12 @@ const AnimateLogo = () => {
           className="absolute bottom-7"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 3 }}
+          transition={{
+            duration: 1,
+            delay: 3,
+            repeat: Infinity,
+            repeatDelay: 1,
+          }}
         >
           <Image
             src={"/assets/Hero-Tag-line.png"}

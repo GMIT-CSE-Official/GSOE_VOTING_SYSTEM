@@ -3,6 +3,7 @@ import { Inter, Merriweather } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
+import { CookiesProvider } from "next-client-cookies/server";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -32,9 +33,13 @@ export default function RootLayout({
         className={`${inter.variable} ${merriWeather.variable} antialiased max-w-md mx-auto relative`}
         suppressHydrationWarning
       >
-        <Header />
-        {children}
-        <Footer />
+        <CookiesProvider>
+          <>
+            <Header />
+            {children}
+            <Footer />
+          </>
+        </CookiesProvider>
       </body>
     </html>
   );
