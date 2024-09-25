@@ -31,6 +31,7 @@ const page = () => {
               3-Night, 4-Day Dream Getaway to
             </span>
             <p className="text-center text-2xl font-bold edosz text-orange-900 mt-2">
+              {/* create a eye catching framer motion animation for the text */}
               Bali, Indonesia
             </p>
             <DashedSeparator />

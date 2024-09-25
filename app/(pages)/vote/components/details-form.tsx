@@ -17,6 +17,8 @@ import React, { useState } from "react";
 import { createUser } from "@/actions/user";
 import { useRouter } from "next/navigation";
 import { useCookies } from "next-client-cookies";
+import { vote } from "@/actions/vote";
+import { voteSchema } from "./vote-form";
 
 const formSchema = z.object({
   name: z
@@ -27,76 +29,54 @@ const formSchema = z.object({
   phoneNumber: z
     .string()
     .regex(/^\d{10}$/, "Please enter a valid 10-digit phone number"),
-  email: z.string().email("Please enter a valid email"),
-  age: z
-    .string()
-    .optional()
-    .nullable()
-    .refine((value) => {
-      if (!value) {
-        return true;
-      }
-      const parsedValue = Number(value);
-      if (isNaN(parsedValue)) {
-        return false;
-      }
-      return parsedValue >= 6;
-    }, "Age must be a number and above 6"),
-  occupation: z
-    .string()
-    .min(2, "Occupation is too short")
-    .max(100, "Occupation is too long")
-    .optional()
-    .nullable(),
-  location: z
-    .string()
-    .min(2, "Location is too short")
-    .max(100, "Location is too long")
-    .optional()
-    .nullable(),
 });
 
 export default function DetailsForm() {
   const cookies = useCookies();
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       phoneNumber: "",
-      email: "",
-      age: undefined,
-      occupation: undefined,
-      location: undefined,
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setError(null);
-    setLoading(true); // Start showing the loader
+    setLoading(true);
     try {
-      const { error, success, token } = await createUser({
-        age: values.age ? parseInt(values.age) : undefined,
-        email: values.email,
-        location: values.location || undefined,
+      const { error, success, token, data } = await createUser({
         name: values.name,
-        occupation: values.occupation || undefined,
         phoneNumber: values.phoneNumber,
       });
 
       if (error) {
         setError(error);
-        setLoading(false); // Stop the loader in case of error
+        setLoading(false);
         return;
       }
 
       if (success) {
-        if (token) {
+        if (token && data) {
           cookies.set("token-gsoe", token);
+          const values = localStorage.getItem("vote-values");
+
+          if (values) {
+            const parsedData = JSON.parse(values) as z.infer<typeof voteSchema>;
+            const { success } = await vote({
+              userId: data.id,
+              bestArtAndAmbience: parsedData.bestArtAndAmbience || undefined,
+              bestConcept: parsedData.bestConcept || undefined,
+              bestIdol: parsedData.bestIdol || undefined,
+            });
+            if (success) {
+              router.push(`/thankyou`);
+            }
+          }
         }
-        router.push(`/vote`); 
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -104,10 +84,9 @@ export default function DetailsForm() {
       } else {
         setError("An error occurred");
       }
-      // setLoading(false); // Stop loader on error
     } finally {
       setTimeout(() => {
-        setLoading(false); // Stop loading
+        setLoading(false);
       }, 5000);
     }
   }
@@ -132,33 +111,11 @@ export default function DetailsForm() {
               placeholder: "Enter 10-digit phone number",
               required: true,
             },
-            {
-              name: "email",
-              label: "Email",
-              placeholder: "Enter valid email only",
-              required: true,
-            },
-            {
-              name: "age",
-              label: "Age",
-              placeholder: "Enter age",
-              type: "number",
-            },
-            {
-              name: "occupation",
-              label: "Occupation",
-              placeholder: "Enter occupation",
-            },
-            {
-              name: "location",
-              label: "Location",
-              placeholder: " Enter location",
-            },
           ].map((field) => (
             <FormField
               key={field.name}
               control={form.control}
-              name={field.name as keyof z.infer<typeof formSchema>}
+              name={(field.name as "name") || "phoneNumber"}
               render={({ field: formField }) => (
                 <FormItem>
                   <p className="flex  items-center gap-2 max-[360px]:flex-wrap">
@@ -172,7 +129,6 @@ export default function DetailsForm() {
                       <Input
                         placeholder={field.placeholder}
                         {...formField}
-                        type={field.type || "text"}
                         value={formField.value || ""}
                         className="w-full"
                       />
@@ -194,7 +150,7 @@ export default function DetailsForm() {
           <Button
             type="submit"
             className="flex items-center gap-2 shadow-md shadow-slate-700/30"
-            disabled={loading} // Disable button while loading
+            disabled={loading}
           >
             Submit
             <ArrowRight size={18} />

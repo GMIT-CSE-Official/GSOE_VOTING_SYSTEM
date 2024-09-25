@@ -11,13 +11,13 @@ export const getUserByToken = async (token?: string) => {
       };
     }
 
-    const { email } = jwt.verify(token, process.env.JWT_SECRET!) as {
-      email: string;
+    const { id } = jwt.verify(token, process.env.JWT_SECRET!) as {
+      id: string;
     };
 
     const user = await prisma.user.findUnique({
       where: {
-        email,
+        id,
       },
       include: {
         vote: true,
@@ -35,11 +35,6 @@ export const getUserByToken = async (token?: string) => {
       data: user,
     };
   } catch (error) {
-    if (error instanceof Error) {
-      return {
-        error: error.message,
-      };
-    }
     return {
       error: "An error occurred",
     };
@@ -48,28 +43,12 @@ export const getUserByToken = async (token?: string) => {
 
 export const createUser = async ({
   name,
-  email,
   phoneNumber,
-  age,
-  occupation,
-  location,
 }: {
   name: string;
-  email: string;
   phoneNumber: string;
-  age?: number;
-  occupation?: string;
-  location?: string;
 }) => {
   try {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-    if (!emailRegex.test(email)) {
-      return {
-        error: "Invalid email",
-      };
-    }
-
     const phoneExists = await prisma.user.findFirst({
       where: {
         mobile: phoneNumber,
@@ -83,7 +62,7 @@ export const createUser = async ({
 
     const userExists = await prisma.user.findFirst({
       where: {
-        email,
+        mobile: phoneNumber,
       },
     });
 
@@ -105,22 +84,19 @@ export const createUser = async ({
       };
     }
 
-    await prisma.user.create({
+    const user = await prisma.user.create({
       data: {
-        email,
         name,
         mobile: phoneNumber,
-        age,
-        occupation,
-        location,
       },
     });
 
-    const token = jwt.sign({ email }, process.env.JWT_SECRET!);
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!);
 
     return {
       success: true,
       token,
+      data: user,
     };
   } catch (error) {
     if (error instanceof Error) {
