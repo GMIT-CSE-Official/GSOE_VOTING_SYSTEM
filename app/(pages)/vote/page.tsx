@@ -1,16 +1,8 @@
 import React from "react";
 import VoteForm from "./components/vote-form";
-import { getUserByToken } from "@/actions/user";
-import { cookies } from "next/headers";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { ArrowDown, Home } from "lucide-react";
 import Image from "next/image";
 
 const Vote = async () => {
-  const cookieStore = cookies();
-  const token = cookieStore.get("token-gsoe");
-
   return (
     <section className="min-h-screen" id="vote-bg">
       <div className="flex justify-center items-center w-full aspect-square mb-8">
