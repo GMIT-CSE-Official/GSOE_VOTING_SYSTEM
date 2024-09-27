@@ -226,7 +226,7 @@ const VoteForm = () => {
               name="bestArtAndAmbience"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Best Art and Ambiance</FormLabel>
+                  <FormLabel>Best Art and Ambience</FormLabel>
                   <FormControl className="w-[280px] mx-auto ">
                     <Input
                       {...field}
